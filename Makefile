@@ -5,6 +5,10 @@ migrate:
 	pipenv run python src/manage.py makemigrations
 	pipenv run python src/manage.py migrate
 
+collect:
+	[ -d static/ ] && rm -r static/
+	pipenv run python src/manage.py	collectstatic
+
 check:
 	pipenv run python src/manage.py check
 
@@ -15,4 +19,6 @@ setup:
 	pip install pipenv
 	pipenv install
 
-local: setup migrate run
+init: setup migrate collect
+
+local: setup migrate collect run
