@@ -1,0 +1,31 @@
+{% extends "auth_base.html" %}
+
+{% block title %} Login {% endblock title %}
+
+{% block form %}
+<div class="login form">
+    <header> Login</header>
+    {% if messages %}
+    <div class="message">
+        {% for message in messages %}
+        {% with color|default:"green" as message_color %}
+        <p style="color: {{ message_color }}; margin-top: 10px;">{{ message }}</p>
+        {% endwith %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <form action="/login/" id="loginForm" method="post">
+        {% csrf_token %}
+        <input id="loginusername" name="username"
+            placeholder="Enter your username" required type="text">
+        <input id="loginPassword" name="password"
+            placeholder="Enter your password" required type="password">
+        <input class="button" type="submit" value="Login">
+    </form>
+    <div class="signup">
+        <span class="signup">Don't have an account?
+            <a href="/signup/">Signup</a>
+        </span>
+    </div>
+</div>
+{% endblock form %}

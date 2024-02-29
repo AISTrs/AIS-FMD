@@ -6,7 +6,7 @@ migrate:
 	pipenv run python src/manage.py migrate
 
 collect:
-	[ -d static/ ] && rm -r static/
+	[ -d static/ ] && rm -r static/ || echo "skip"
 	pipenv run python src/manage.py	collectstatic
 
 check:
@@ -21,4 +21,4 @@ setup:
 
 init: setup migrate collect
 
-local: setup migrate collect run
+local: setup migrate run
