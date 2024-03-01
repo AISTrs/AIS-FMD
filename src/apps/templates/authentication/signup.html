@@ -4,37 +4,37 @@
 
 {% block form %}
 <div class="signup form">
-  <header>Signup</header>
+    <header>Signup</header>
 
-  {% if messages %}
-  <div class="message">
-    {% for message in messages %}
-    <p style="color: red; margin-top: 10px;">{{ message }}</p>
-    {% endfor %}
-  </div>
-  {% endif %}
+    {% if messages %}
+    <div class="message">
+        {% for message in messages %}
+        <p style="color: red; margin-top: 10px;">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
 
-  <form action="/signup/" id="signupForm" method="post"
-    onsubmit="return validatePassword()">
-    {% csrf_token %}
-    <input id="signupUserName" name="username" placeholder="Enter your username"
-      required type="text">
-    <input id="signupFirstName" name="firstname"
-      placeholder="Enter your first name" required type="text">
-    <input id="signupLastName" name="lastname"
-      placeholder="Enter your last name" required type="text">
-    <input id="signupEmail" name="email" placeholder="Enter your email"
-      type="text">
-    <input id="signupPassword" name="password1" placeholder="Create a password"
-      required type="password">
-    <input id="confirmPassword" name="password2"
-      placeholder="Confirm your password" required type="password">
-    <input class="button" type="submit" value="Signup">
-  </form>
-  <div class="signup">
+    <form action="/signup/" id="signupForm" method="post"
+          onsubmit="return validatePassword()">
+        {% csrf_token %}
+        <input id="signupUserName" name="username" placeholder="Enter your username"
+               required type="text">
+        <input id="signupFirstName" name="firstname"
+               placeholder="Enter your first name" required type="text">
+        <input id="signupLastName" name="lastname"
+               placeholder="Enter your last name" required type="text">
+        <input id="signupEmail" name="email" placeholder="Enter your email"
+               type="text">
+        <input id="signupPassword" name="password1" placeholder="Create a password"
+               required type="password">
+        <input id="confirmPassword" name="password2"
+               placeholder="Confirm your password" required type="password">
+        <input class="button" type="submit" value="Signup">
+    </form>
+    <div class="signup">
     <span class="signup">Already have an account?
       <a href="/login/">Login</a>
     </span>
-  </div>
+    </div>
 </div>
 {% endblock form %}
