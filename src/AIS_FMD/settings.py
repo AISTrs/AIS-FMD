@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "apps.core",
 ]
 
 MIDDLEWARE = [
@@ -52,10 +53,18 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "AIS_FMD.urls"
 
+
+template_base_path = f"{BASE_DIR}/apps/templates"
+template_dirs = [
+    os.path.join(template_base_path, d)
+    for d in os.listdir(template_base_path)
+    if os.path.isdir(os.path.join(template_base_path, d))
+]
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["src/apps/templates/authentication"],
+        "DIRS": [] + template_dirs,
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
