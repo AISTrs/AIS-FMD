@@ -5,15 +5,18 @@
 {% block stylesheet %}
 
 <link href="/static/assets/css/home.css" rel="stylesheet">
+<link rel="stylesheet"
+    href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
 {% endblock stylesheet %}
 
 {% block js %}
 
-<script src="/static/assets/js/home.js"></script>
-<script src="/static/assets/js/utils.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
-        src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="/static/assets/js/utils.js"></script>
+<script src="/static/assets/js/home.js"></script>
 
 {% endblock js%}
 
@@ -21,7 +24,26 @@
 
 <div class="home-layout" id="home-layout">
 
-    <h1> This is home page</h1>
+    {% include "semester.html" %}
+
+    <div id="semester-summary" class="semester-summary shadow bg-white">
+        <div class="ais-title bg-white">
+            <img class="ais-logo p-2" src="/static/assets/images/AIS.png"
+                width="50px" height="50px">
+            <span class="date-label p-lg-4 fs-2 f-basic-black">
+                Financial Management Database
+            </span>
+        </div>
+
+        <div id="level1-div" class="level1-div">
+            <div class="data-table">
+                <span class="f-basic-black fs-4"> Semester Overview </span>
+                <table id="dataTable" class="p-1"></table>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 

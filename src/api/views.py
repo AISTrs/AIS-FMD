@@ -21,6 +21,7 @@ def get_committee_budget(request):
     df = df[const.BUDGETING_COLS]
     df = df.map(lambda x: None if x == '' else x)
     df = df.dropna(how='all')
+    df = df.sort_values(by='Semester Date1', ascending=False)
 
     json_list = []
     for index, row in df.iterrows():
@@ -28,8 +29,8 @@ def get_committee_budget(request):
         budgets = row['Budgets'].split(',')
         json_obj = {
             'semester': row['Input'],
-            'start_Date': row['Semester Date1'],
-            'end_Date': row['Semester Date2'],
+            'start_date': row['Semester Date1'],
+            'end_date': row['Semester Date2'],
             'committee': committees,
             'budget': budgets
         }
@@ -47,5 +48,6 @@ def get_master_ledger_data(request):
     df = df[const.MASTER_LEDGER_COLS]
     df = df.map(lambda x: None if x == '' else x)
     df = df.dropna(how='all')
+    df = df.sort_values(by='Date', ascending=False)
 
     return JsonResponse(df.to_dict(orient='records'), safe=False)

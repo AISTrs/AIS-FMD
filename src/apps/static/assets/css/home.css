@@ -1,0 +1,27 @@
+.ais-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 90vw;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.semester-summary {
+    width: 90vw;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.level1-div {
+    display: flex;
+}
+
+.data-table {
+    flex: 1;
+    margin: 10px;
+    height: 300px;
+    text-align: center;
+    align-items: center;
+    font-size: 12px;
+}

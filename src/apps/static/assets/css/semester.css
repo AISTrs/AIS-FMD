@@ -1,0 +1,27 @@
+.top-nav-semester {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    width: 90vw;
+    height: 50px;
+}
+
+.fiscal-term-drop-down {
+    border: 2px solid #7686bc;
+    border-radius: 5px;
+    padding: 5px 5px;
+    margin-left: 10px;
+    font-size: 16px;
+    color: #333;
+    margin-right: auto;
+}
+
+.fiscal-term-drop-down:hover {
+    background-color: #e0e0e0;
+}
+
+.fiscal-term-drop-down:focus {
+    border-color: #007bff;
+}
