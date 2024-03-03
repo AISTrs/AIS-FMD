@@ -21,7 +21,7 @@ async function initSemester() {
 
     fiscalDropdown.addEventListener('change', function () {
         startDate.innerText = `Start Date: ${budgetData[fiscalDropdown.selectedIndex].start_date}`;
-        endDate.innerText = `Start Date: ${budgetData[fiscalDropdown.selectedIndex].end_date}`;
+        endDate.innerText = `End Date: ${budgetData[fiscalDropdown.selectedIndex].end_date}`;
         daysLeft.innerText = `Days left: ${calculateDaysLeft(budgetData[fiscalDropdown.selectedIndex].end_date)}`;
     });
 
