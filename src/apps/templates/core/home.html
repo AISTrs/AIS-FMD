@@ -13,8 +13,12 @@
 {% block js %}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript"
+    src="https://www.gstatic.com/charts/loader.js"></script>
 <script
     src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/static/assets/js/utils.js"></script>
 <script src="/static/assets/js/home.js"></script>
 
@@ -26,7 +30,7 @@
 
     {% include "semester.html" %}
 
-    <div id="semester-summary" class="semester-summary shadow bg-white">
+    <div id="semester-summary" class="summary shadow bg-white">
         <div class="ais-title bg-white">
             <img class="ais-logo p-2" src="/static/assets/images/AIS.png"
                 width="50px" height="50px">
@@ -41,6 +45,89 @@
                 <table id="dataTable" class="p-1"></table>
             </div>
 
+            <div class=" cash-summary ml-2">
+                <div class="card m-2 balance-card">
+                    <div class="card-body">
+                        <h4 class="card-title fs-5">Cash Inflow</h4>
+                        <p class="card-text" id="cash-inflow-text">$</p>
+                    </div>
+                </div>
+                <div class="card m-2 balance-card">
+                    <div class="card-body">
+                        <h4 class="card-title fs-5">Cash Outflow</h4>
+                        <p class="card-text" id="cash-outflow-text">$</p>
+                    </div>
+                </div>
+                <div class="card m-2 balance-card">
+                    <div class="card-body">
+                        <h4 class="card-title fs-5">Net Cash Flow</h4>
+                        <p class="card-text" id="cash-netflow-text">$</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card budget m-2 mb-4 f-basic-black">
+                <div class="card-body">
+                    <p class="card-text fs-5"> Budget
+                        <span class="ps-3" id="estimated-budget">$</span>
+                    </p>
+                    <p class="card-text fs-5"> Usage
+                        <span class="ps-3" id="budget-usage">$</span>
+                    </p>
+                    <canvas id="progressChart" height="100"></canvas>
+                    <p class="card-text fs-5 mt-4"> Usage:
+                        <span class="ps-3"
+                            id="budget-usage-percentage">0%</span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="purpose-usage-summary"
+        class="summary d-flex shadow bg-white rounded-2">
+        <div id="purpose-income" class="d-flex ">
+            <div>
+                <p></p>
+                <table id="purpose-income-table">
+                    <thead>
+                        <tr>
+                            <th>Purpose</th>
+                            <th>Income</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table content will be populated here -->
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div id="purpose-income-pie-chart"
+                style="width: 400px; height: 250px;" class="p-2"></div>
+        </div>
+
+        <div id="purpose-expense" class="d-flex ">
+            <div>
+                <p></p>
+                <table id="purpose-expense-table">
+                    <thead>
+                        <tr>
+                            <th>Purpose</th>
+                            <th>Expense</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table content will be populated here -->
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div id="purpose-expense-pie-chart"
+                style="width: 400px; height: 250px;" class="p-2"></div>
         </div>
 
     </div>

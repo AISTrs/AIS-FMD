@@ -36,6 +36,7 @@ function getExpenseData(budgetData, masterData) {
 
         const amount = masterData[i].Amount;
         const purpose = masterData[i].Purpose;
+        const budget = masterData[i].Budget;
 
         if (!(purpose in purposeDict)) {
             purposeDict[purpose] = {
@@ -44,18 +45,21 @@ function getExpenseData(budgetData, masterData) {
             }
         }
 
-        if (amount >= 0) {
-            purposeDict[purpose]["income"] += parseFloat(amount);
-        } else {
-            purposeDict[purpose]["income"] += parseFloat(Math.abs(amount));
+        if (!(budget in committeeDict)) {
+            committeeDict[budget] = {
+                "income": 0,
+                "expense": 0,
+                "budget": 0
+            }
         }
 
-        if (masterData[i].Budget in committeeDict) {
-            if (amount >= 0) {
-                committeeDict[masterData[i].Budget]["income"] += parseFloat(amount);
-            } else {
-                committeeDict[masterData[i].Budget]["expense"] += parseFloat(Math.abs(amount));
-            }
+
+        if (amount >= 0) {
+            purposeDict[purpose]["income"] += parseFloat(amount);
+            committeeDict[budget]["income"] += parseFloat(amount);
+        } else {
+            purposeDict[purpose]["expense"] += parseFloat(Math.abs(amount));
+            committeeDict[budget]["expense"] += parseFloat(Math.abs(amount));
         }
 
 

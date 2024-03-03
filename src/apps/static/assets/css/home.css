@@ -7,21 +7,63 @@
     border-radius: 5px;
 }
 
-.semester-summary {
+.summary {
     width: 90vw;
     margin-top: 10px;
     border-radius: 5px;
+    overflow: auto;
+}
+
+.balance-card {
+    background-color: #5371FF;
+    color: white;
+    text-align: center;
+}
+
+.budget {
+    flex-grow: 0.5;
+    flex-shrink: 0;
+}
+
+.budget span {
+    color: #5371FF;
+}
+
+.cash-inflow {
+    text-align: center;
+    flex-grow: 1;
+    flex-shrink: 0;
 }
 
 .level1-div {
     display: flex;
+    overflow: auto;
 }
 
 .data-table {
-    flex: 1;
     margin: 10px;
     height: 300px;
+    flex: 2;
     text-align: center;
     align-items: center;
     font-size: 12px;
+}
+
+table {
+    width: 180px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 12px;
+}
+
+th {
+    background-color: #f1f1f1;
+    padding: 8px;
+    text-align: left;
+}
+
+td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
 }
