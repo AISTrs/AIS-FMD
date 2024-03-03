@@ -1,0 +1,94 @@
+{% extends "base_layout.html" %}
+{% load static %}
+
+{% block title %} FMD Committee {% endblock title %}
+
+{% block stylesheet %}
+
+<link href="{% static 'assets/css/committee.css' %}" rel="stylesheet">
+<link rel="stylesheet"
+    href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+{% endblock stylesheet %}
+
+{% block js %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript"
+    src="https://www.gstatic.com/charts/loader.js"></script>
+<script
+    src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'assets/js/utils.js' %}"></script>
+<script src="{% static 'assets/js/committee.js' %}"></script>
+
+{% endblock js %}
+
+{% block content %}
+
+<div class="committee-layout">
+
+    {% include "semester.html" %}
+
+    <div id="committee-charts" class="shadow bg-white mt-2 committee-charts">
+
+        <div class="committee-title pt-3">
+            <select class="committee-drop-down"
+                id="committee-drop-down"></select>
+            <p class="f-basic-black fs-4 mx-auto" id="committee-title">Committee
+                Budget Overview</p>
+        </div>
+
+        <div class="mt-3 flex-wrap charts">
+            <canvas id="lineChart" height="300px" class="p-2"></canvas>
+            <canvas id="doubleBarChart" height="300px" class="p-2"></canvas>
+
+            <div class="cash-summary ml-2">
+                <div class="card m-2 balance-card">
+                    <div class="card-body">
+                        <h4 class="card-title fs-5">Cash Inflow</h4>
+                        <p class="card-text" id="cash-inflow-text">$</p>
+                    </div>
+                </div>
+                <div class="card m-2 balance-card">
+                    <div class="card-body">
+                        <h4 class="card-title fs-5">Cash Outflow</h4>
+                        <p class="card-text" id="cash-outflow-text">$</p>
+                    </div>
+                </div>
+                <div class="card m-2 balance-card">
+                    <div class="card-body">
+                        <h4 class="card-title fs-5">Net Cash Flow</h4>
+                        <p class="card-text" id="cash-netflow-text">$</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card budget m-2 mb-4 f-basic-black">
+                <div class="card-body">
+                    <p class="card-text fs-5"> Budget
+                        <span class="ps-3" id="estimated-budget">$</span>
+                    </p>
+                    <p class="card-text fs-5"> Usage
+                        <span class="ps-3" id="budget-usage">$</span>
+                    </p>
+                    <canvas id="progressChart" height="100"></canvas>
+                    <p class="card-text fs-5 mt-4"> Usage:
+                        <span class="ps-3"
+                            id="budget-usage-percentage">0%</span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="data-table shadow bg-white mt-2">
+        <table id="dataTable" class="p-1"></table>
+    </div>
+
+</div>
+
+{% endblock content%}

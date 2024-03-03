@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initSemester().then(budgetData => {
         let budget = budgetData[fiscalDropdown.selectedIndex];
 
-        fetchApiJsonData('api/master_ledger_data/').then(masterData => {
+        fetchApiJsonData('/api/master_ledger_data/').then(masterData => {
 
             populateSemesterOverview(budget, masterData);
 

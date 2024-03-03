@@ -70,3 +70,45 @@ function getExpenseData(budgetData, masterData) {
         "purpose": purposeDict
     }
 }
+
+function calculateDailyIncomeExpense(transactions) {
+    const dailyData = {};
+
+    transactions.forEach(transaction => {
+        const date = new Date(transaction.Date).toLocaleDateString();
+        const amount = parseFloat(transaction.Amount);
+
+        if (!(date in dailyData)) {
+            dailyData[date] = { date: date, income: 0, expense: 0 };
+        }
+
+        if (amount >= 0) {
+            dailyData[date].income += amount;
+        } else {
+            dailyData[date].expense += Math.abs(amount);
+        }
+    });
+
+    return Object.values(dailyData);
+}
+
+function calculateIncomeExpenseByPurpose(transactions) {
+    const result = {};
+
+    transactions.forEach(transaction => {
+        const purpose = transaction.Purpose;
+        const amount = parseFloat(transaction.Amount);
+
+        if (!result[purpose]) {
+            result[purpose] = { purpose: purpose, income: 0, expense: 0 };
+        }
+
+        if (amount >= 0) {
+            result[purpose].income += amount;
+        } else {
+            result[purpose].expense -= amount;
+        }
+    });
+
+    return Object.values(result);
+}
