@@ -2,16 +2,13 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 90vw;
     height: 50px;
     border-radius: 5px;
 }
 
 .summary {
-    width: 90vw;
     margin-top: 10px;
     border-radius: 5px;
-    overflow: auto;
 }
 
 .balance-card {
@@ -35,9 +32,9 @@
     flex-shrink: 0;
 }
 
-.level1-div {
+.semester-overview {
     display: flex;
-    overflow: auto;
+    flex-wrap: wrap;
 }
 
 .data-table {

@@ -4,29 +4,28 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: 90px;
+    width: 60px;
     transition: 0.5s;
+    z-index: 1000;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     justify-content: space-between;
     overflow: auto;
 }
 
+
 .container-fluid {
-    background-color: whitesmoke;
-    position: fixed;
     top: 0;
-    bottom: 0;
-    left: 90px;
-    right: 0;
-    padding-left: 15px;
-    width: 92.7vw;
-    transition: 0.5s;
+    position: fixed;
+    height: 100%;
+    margin-left: 55px;
     overflow: auto;
+    background-color: whitesmoke;
+    padding-right: 65px;
 }
 
 .base-nav-layout:hover {
-    width: 200px;
+    width: 170px;
 }
 
 .nav-layout ul {
