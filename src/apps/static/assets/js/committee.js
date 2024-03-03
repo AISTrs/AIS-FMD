@@ -254,5 +254,7 @@ function createDataTable(data, containerId, columns) {
         info: true,
         paging: true,
         scrollY: "200px",
+        scrollX: true,
+        scrollXInner: "100%",
     });
 }
