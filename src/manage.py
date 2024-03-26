@@ -28,11 +28,14 @@ def thread_update_database():
         # Make a POST request to the API endpoint to update the database
         try:
             BASE_URL = os.getenv('BASE_URL', '')
-            response = requests.post(f'{BASE_URL}/api/update_database')
-            if response.status_code == 200:
-                print("Database updated successfully")
+            if BASE_URL:
+                response = requests.post(f'{BASE_URL}/api/update_database')
+                if response.ok:
+                    print("Database updated successfully")
+                else:
+                    print(f"Failed to update database. Status code: {response.status_code}")
             else:
-                print("Failed to update database")
+                print("BASE_URL environment variable is not set.")
 
             # Wait for 24 hours before the next update
             time.sleep(24 * 60 * 60)
