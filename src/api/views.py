@@ -46,8 +46,6 @@ def get_master_ledger_data(request):
 @api_view(["GET"])
 def update_database(request):
     # update Master Ledger
-    # wks = sh.worksheet_by_title("Master Ledger")
-    # data = wks.get_all_values()
 
     sheet = client.open_by_key(SHEET_ID).worksheet("Master Ledger")
     data = sheet.get_all_values()
@@ -73,8 +71,6 @@ def update_database(request):
 
     # update Budgeting
 
-    # wks = sh.worksheet_by_title("Budgeting")
-    # data = wks.get_all_values()
     sheet = client.open_by_key(SHEET_ID).worksheet("Budgeting")
     data = sheet.get_all_values()
     records = data[1:]
