@@ -84,11 +84,26 @@ WSGI_APPLICATION = "AIS_FMD.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
+ACTIVE_DATABASE = os.getenv("ACTIVE_DATABASE", "default")
+
+DATABASE_CONNECTION_DICT = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+    },
+    "mysql": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.environ.get("DB_NAME", ""),
+        "USER": os.environ.get("DB_USER", ""),
+        "PASSWORD": os.environ.get("DB_PASSWORD", ""),
+        "HOST": os.environ.get("DB_HOST", ""),
+        "PORT": os.environ.get("DB_PORT", ""),
+        "OPTIONS": {"charset": "utf8mb4"},
     }
+}
+
+DATABASES = {
+    "default": DATABASE_CONNECTION_DICT[ACTIVE_DATABASE]
 }
 
 # Password validation
