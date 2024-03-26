@@ -2,10 +2,6 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import threading
-import time
-
-import requests
 from dotenv import load_dotenv
 
 
@@ -22,33 +18,6 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
-
-def thread_update_database():
-    while True:
-        # Make a POST request to the API endpoint to update the database
-        try:
-            BASE_URL = os.getenv('BASE_URL', '')
-            if BASE_URL:
-                response = requests.post(f'{BASE_URL}/api/update_database')
-                if response.ok:
-                    print("Database updated successfully")
-                else:
-                    print(f"Failed to update database. Status code: {response.status_code}")
-            else:
-                print("BASE_URL environment variable is not set.")
-
-            # Wait for 24 hours before the next update
-            time.sleep(24 * 60 * 60)
-        except Exception as ex:
-            time.sleep(60 * 60)
-            print("Failed to update database", ex)
-
-
 if __name__ == "__main__":
     load_dotenv()
-
-    update_thread = threading.Thread(target=thread_update_database)
-    update_thread.daemon = True
-    update_thread.start()
-
     main()

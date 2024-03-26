@@ -3,24 +3,28 @@ document.addEventListener("DOMContentLoaded", function () {
     let fiscalDropdown = document.getElementById("fiscal-term-drop-down");
     google.charts.load('current', { 'packages': ['corechart'] });
 
-    initSemester().then(budgetData => {
-        let budget = budgetData[fiscalDropdown.selectedIndex];
+    google.charts.setOnLoadCallback(function() {
+        console.log('Google Charts loaded');
+        initSemester().then(budgetData => {
+            let budget = budgetData[fiscalDropdown.selectedIndex];
 
-        fetchApiJsonData('/api/master_ledger_data/').then(masterData => {
-
-            populateSemesterOverview(budget, masterData);
-
-            fiscalDropdown.addEventListener('change', function () {
-
-                let budget = budgetData[fiscalDropdown.selectedIndex];
+            fetchApiJsonData('/api/master_ledger_data/').then(masterData => {
 
                 populateSemesterOverview(budget, masterData);
+
+                fiscalDropdown.addEventListener('change', function () {
+
+                    let budget = budgetData[fiscalDropdown.selectedIndex];
+
+                    populateSemesterOverview(budget, masterData);
+
+                });
 
             });
 
         });
+});
 
-    });
 
 });
 

@@ -43,7 +43,7 @@ def get_master_ledger_data(request):
     return JsonResponse(serializer.data, safe=False)
 
 
-@api_view(["POST"])
+@api_view(["GET"])
 def update_database(request):
     # update Master Ledger
     # wks = sh.worksheet_by_title("Master Ledger")
