@@ -11,7 +11,7 @@ class AdminLoginRequiredMiddleware:
                 pass
             else:
                 return redirect("/login")
-        elif request.path.startswith("/admin") and not request.user.has_perm(
+        elif (request.path.startswith("/admin") or request.path.startswith("/api/update_database")) and not request.user.has_perm(
                 "admin.access_admin"
         ):
             return redirect("/")
