@@ -2,42 +2,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let committeeDropdown = document.getElementById('committee-drop-down');
     let fiscalDropdown = document.getElementById("fiscal-term-drop-down");
-    let committeeTitle = document.getElementById('committee-title');
 
     initSemester().then(budgetData => {
 
         let budget = budgetData[fiscalDropdown.selectedIndex];
         updateCommitteeDropdown(budget.committee);
+        const committee = committeeDropdown.options[0].text;
 
-        fetchApiJsonData('/api/master_ledger_data/').then(masterData => {
+        populate(committee, budget)
 
+        fiscalDropdown.addEventListener('change', function () {
+
+            let budget = budgetData[fiscalDropdown.selectedIndex];
+            updateCommitteeDropdown(budget.committee);
             const committee = committeeDropdown.options[0].text;
-            populateCommitteeView(masterData, budget, committee);
-            committeeTitle.innerText = `${committee} Budget Overview`;
-
-            fiscalDropdown.addEventListener('change', function () {
-
-                let budget = budgetData[fiscalDropdown.selectedIndex];
-                updateCommitteeDropdown(budget.committee);
-                const committee = committeeDropdown.options[0].text;
-                populateCommitteeView(masterData, budget, committee);
-                committeeTitle.innerText = `${committee} Budget Overview`;
-
-            });
-
-            committeeDropdown.addEventListener('change', function () {
-
-                let budget = budgetData[fiscalDropdown.selectedIndex];
-                const committee = committeeDropdown.options[committeeDropdown.selectedIndex].text;
-                populateCommitteeView(masterData, budget, committee);
-                committeeTitle.innerText = `${committee} Budget Overview`;
-            })
+            populate(committee, budget);
 
         });
+
+        committeeDropdown.addEventListener('change', function () {
+
+            let budget = budgetData[fiscalDropdown.selectedIndex];
+            const committee = committeeDropdown.options[committeeDropdown.selectedIndex].text;
+            populate(committee, budget);
+
+        })
 
     });
 
 });
+
+function populate(committee, budget) {
+    let committeeTitle = document.getElementById('committee-title');
+    let encodedCommittee = encodeURIComponent(committee);
+
+    fetchApiJsonData("/api/master_ledger_data/" + encodedCommittee).then(masterData => {
+
+        if (masterData.hasOwnProperty("error")) {
+            alert("Error: " + masterData.error);
+        } else {
+            committeeTitle.innerText = `${committee} Budget Overview`;
+            populateCommitteeView(masterData, budget, committee);
+        }
+    });
+
+}
 
 function populateCommitteeView(masterData, budget, committee) {
 
@@ -57,7 +66,7 @@ function populateCommitteeView(masterData, budget, committee) {
     const dailyData = calculateDailyIncomeExpense(data);
 
     createDataTable(data, "dataTable", columns);
-    drawLineChart(dailyData, 'lineChart');
+    drawLineChart(calculateTimeseriesData(dailyData), 'lineChart');
     plotDoubleBarChart(calculateIncomeExpenseByPurpose(data), 'doubleBarChart');
 
     const cashInflowText = document.getElementById('cash-inflow-text');
@@ -85,7 +94,7 @@ function populateCommitteeView(masterData, budget, committee) {
     cashNetflowText.innerText = `$${(cashInflow - cashOutflow).toFixed(2)}`;
     budgetText.innerText = `$${totalBudget.toFixed(2)}`;
     usageText.innerText = `$${cashOutflow.toFixed(2)}`;
-    usagePrecentText.innerText = `${usage}%`;
+    usagePrecentText.innerText = `${usage.toFixed(2)}%`;
 
     createProgressBar(usage, 'progressChart');
 

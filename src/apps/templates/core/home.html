@@ -1,5 +1,6 @@
 {% extends "base_layout.html" %}
 {% load static %}
+{% load filters %}
 
 {% block title %} FMD Home {% endblock title %}
 
@@ -31,6 +32,7 @@
 
     {% include "semester.html" %}
 
+    {% if user.is_superuser or user|in_group:'admin_group' %}
     <div id="semester-summary" class="summary shadow bg-white">
         <div class="ais-title bg-white">
             <img class="ais-logo p-2" src="{% static 'assets/images/AIS.png' %}"
@@ -132,6 +134,10 @@
         </div>
 
     </div>
+    {% else %}
+    <h1>Access Denied</h1>
+    {% endif %}
+
 
 </div>
 

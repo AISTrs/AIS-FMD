@@ -81,7 +81,7 @@ function getExpenseData(budgetData, masterData) {
 }
 
 function calculateDailyIncomeExpense(transactions) {
-    const dailyData = {};
+    let dailyData = {};
 
     transactions.forEach(transaction => {
         const date = formatDate(transaction.Date);
@@ -98,9 +98,26 @@ function calculateDailyIncomeExpense(transactions) {
         }
     });
 
-    return Object.keys(dailyData)
-    .sort((a, b) => new Date(a) - new Date(b))
-    .map(key => dailyData[key]);;
+    dailyData = Object.keys(dailyData)
+        .sort((a, b) => new Date(a) - new Date(b))
+        .map(key => dailyData[key]);
+
+    return dailyData;
+}
+
+function calculateTimeseriesData(data) {
+
+    if (data.length == 0) {
+        return []
+    }
+
+    let timeseriesData = [{ date: data[0].date, income: data[0].income, expense: data[0].expense }]
+    for (let i = 1; i < data.length; i++) {
+        const income = data[i].income + timeseriesData[i - 1].income;
+        const expense = data[i].expense + timeseriesData[i - 1].expense;
+        timeseriesData.push({ date: data[i].date, income: income, expense: expense })
+    }
+    return timeseriesData
 }
 
 function calculateIncomeExpenseByPurpose(transactions) {

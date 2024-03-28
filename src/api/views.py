@@ -38,9 +38,17 @@ def get_committee_budget(request):
 
 
 @api_view(['GET'])
-def get_master_ledger_data(request):
-    serializer = MasterLedgerSerializer(MasterLedger.objects.all(), many=True)
-    return JsonResponse(serializer.data, safe=False)
+def get_master_ledger_data(request, committee = None):
+    queryset = MasterLedger.objects
+
+    if committee:
+        queryset = queryset.filter(Budget = committee)
+
+    if request.user.groups.filter(name__in=[committee, 'admin_group']).exists() or request.user.is_superuser:
+        serializer = MasterLedgerSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    else:
+        return JsonResponse({'error': 'You do not have permission to access this resource.'}, safe=False)
 
 
 @api_view(["GET"])
