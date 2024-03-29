@@ -21,7 +21,7 @@ function calculateDaysLeft(dateStr) {
     const date = new Date(dateStr);
     const today = new Date();
     const differenceMs = date - today;
-    const daysLeft = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+    const daysLeft = Math.max(0, Math.ceil(differenceMs / (1000 * 60 * 60 * 24)));
     return daysLeft;
 }
 
