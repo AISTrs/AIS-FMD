@@ -74,11 +74,12 @@ function populateCommitteeView(masterData, budget, committee) {
     const cashNetflowText = document.getElementById('cash-netflow-text');
     const budgetText = document.getElementById('estimated-budget');
     const usageText = document.getElementById('budget-usage');
-    const usagePrecentText = document.getElementById('budget-usage-percentage');
+    const budgetRemainingText = document.getElementById('budget-usage-remaining');
 
     let cashInflow = 0;
     let cashOutflow = 0;
     let totalBudget = parseFloat(budget.budget[committeeDropdown.selectedIndex]);
+    let remaining = 0;
     let usage = 0;
 
     for (daily of dailyData) {
@@ -87,6 +88,7 @@ function populateCommitteeView(masterData, budget, committee) {
     }
 
     usage = (cashOutflow / totalBudget).toFixed(2) * 100;
+    remaining = Math.max((totalBudget - cashOutflow).toFixed(2), 0 );
 
 
     cashInflowText.innerText = `$${cashInflow.toFixed(2)}`;
@@ -94,7 +96,7 @@ function populateCommitteeView(masterData, budget, committee) {
     cashNetflowText.innerText = `$${(cashInflow - cashOutflow).toFixed(2)}`;
     budgetText.innerText = `$${totalBudget.toFixed(2)}`;
     usageText.innerText = `$${cashOutflow.toFixed(2)}`;
-    usagePrecentText.innerText = `${usage.toFixed(2)}%`;
+    budgetRemainingText.innerText = `$${remaining.toFixed(2)}`;
 
     createProgressBar(usage, 'progressChart');
 

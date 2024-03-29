@@ -87,12 +87,13 @@ function updateCashSummary(data) {
     const cashNetflowText = document.getElementById('cash-netflow-text');
     const budgetText = document.getElementById('estimated-budget');
     const usageText = document.getElementById('budget-usage');
-    const usagePrecentText = document.getElementById('budget-usage-percentage');
+    const budgetRemainingText = document.getElementById('budget-usage-remaining');
 
     let cashInflow = 0;
     let cashOutflow = 0;
     let totalBudget = 0;
     let usage = 0;
+    let remaining = 0;
 
     for (budget of data) {
         cashInflow += parseFloat(budget.Income.replace('$', ''));
@@ -101,14 +102,14 @@ function updateCashSummary(data) {
     }
 
     usage = (cashOutflow / totalBudget).toFixed(2) * 100;
-
+    remaining = Math.max((totalBudget - cashOutflow).toFixed(2), 0 );
 
     cashInflowText.innerText = `$${cashInflow.toFixed(2)}`;
     cashOutflowText.innerText = `$${cashOutflow.toFixed(2)}`;
     cashNetflowText.innerText = `$${(cashInflow - cashOutflow).toFixed(2)}`;
     budgetText.innerText = `$${totalBudget.toFixed(2)}`;
     usageText.innerText = `$${cashOutflow.toFixed(2)}`;
-    usagePrecentText.innerText = `${usage}%`;
+    budgetRemainingText.innerText = `$${remaining.toFixed(2)}`;
 
     const progressData = {
         datasets: [{
