@@ -9,7 +9,6 @@ from oauth2client.service_account import ServiceAccountCredentials
 from rest_framework.decorators import api_view
 
 SERVICE_FILE_LOCATION = os.environ["SERVICE_FILE_LOCATION"]
-EXCEL_FILE_NAME = os.environ["EXCEL_FILE_NAME"]
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
