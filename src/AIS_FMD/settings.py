@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-sxn1ehr#_&*11+12)w#01r7kl#q5iexm^n*(na4=$bxx-8#6mw
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["udaya04.pythonanywhere.com", "localhost"]
+ALLOWED_HOSTS = ["aisfmd.pythonanywhere.com", "localhost"]
 
 # Application definition
 
