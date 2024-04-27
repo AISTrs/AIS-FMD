@@ -87,15 +87,15 @@ function populateCommitteeView(masterData, budget, committee) {
         cashOutflow += daily.expense;
     }
 
-    usage = (cashOutflow / totalBudget).toFixed(2) * 100;
-    remaining = Math.max((totalBudget - cashOutflow).toFixed(2), 0 );
+    usage = ((cashOutflow - cashInflow) / totalBudget).toFixed(2) * 100;
+    remaining = Math.max((totalBudget - (cashOutflow - cashInflow)).toFixed(2), 0 );
 
 
     cashInflowText.innerText = `$${cashInflow.toFixed(2)}`;
     cashOutflowText.innerText = `$${cashOutflow.toFixed(2)}`;
     cashNetflowText.innerText = `$${(cashInflow - cashOutflow).toFixed(2)}`;
     budgetText.innerText = `$${totalBudget.toFixed(2)}`;
-    usageText.innerText = `$${cashOutflow.toFixed(2)}`;
+    usageText.innerText = `$${(cashOutflow - cashInflow).toFixed(2)}`;
     budgetRemainingText.innerText = `$${remaining.toFixed(2)}`;
 
     createProgressBar(usage, 'progressChart');
@@ -212,9 +212,11 @@ function plotDoubleBarChart(data, containerId) {
 
 function createProgressBar(usage, containerId) {
 
+    const netUsage = Math.max(0,usage)
+
     const progressData = {
         datasets: [{
-            data: [usage, Math.max(0, 100 - usage)],
+            data: [netUsage, Math.max(0, 100 - usage)],
             backgroundColor: ['#76C471', '#f0f0f0'],
             borderWidth: 0,
             cutout: '50%'

@@ -54,11 +54,19 @@ def get_master_ledger_data(request, committee = None):
 def update_database(request):
     # update Master Ledger
 
-    sheet = client.open_by_key(SHEET_ID).worksheet("Master Ledger")
-    data = sheet.get_all_values()
+    # Open the "Master Ledger" worksheet and get data
+    master_sheet = client.open_by_key(SHEET_ID).worksheet("Master Ledger")
+    master_data = master_sheet.get_all_values()
 
-    header = data[0]
-    records = data[1:]
+    # Open the "cash ledger" worksheet and get data
+    cash_sheet = client.open_by_key(SHEET_ID).worksheet("Cash Ledger")
+    cash_data = cash_sheet.get_all_values()
+
+    for row in cash_data[1:]:
+        row.append("cash")
+
+    header = master_data[0]
+    records = master_data[1:] + cash_data[1:]
 
     instances = []
     for record in records:
@@ -68,7 +76,8 @@ def update_database(request):
         instance_data['Amount'] = instance_data.get('Amount') if instance_data.get('Amount') else 0
         instance_data = {key: value if value != '' else "N/A" for key, value in instance_data.items() if key != ''}
 
-        instances.append(MasterLedger(**instance_data))
+        if instance_data['Budget'].lower() != 'transfers':
+            instances.append(MasterLedger(**instance_data))
 
     # Delete existing records and bulk create new records
     MasterLedger.objects.all().delete()
